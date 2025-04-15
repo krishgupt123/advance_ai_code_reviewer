@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+google-generativeai
+python-owasp-zap-v2.4
+requests
+pydantic
+httpx
+multiprocess
