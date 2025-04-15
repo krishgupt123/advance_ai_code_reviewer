@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./backend  # Ensure backend directory exists with Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - aicodereview_network
+
+  frontend:
+    build: ./frontend  # Ensure frontend directory exists with Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    networks:
+      - aicodereview_network
+
+  nettacker:
+    build: ./nettacker
+    ports:
+      - "5000:5000"
+    command: ["python3", "nettacker.py", "--start-api", "--api-host", "0.0.0.0", "--api-port", "5000"]
+    networks:
+      - aicodereview_network
+
+networks:
+  aicodereview_network:
+    driver: bridge
